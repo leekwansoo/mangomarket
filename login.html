@@ -98,7 +98,7 @@
         localStorage.setItem('user',JSON.stringify(user))
       }
     })
-     var userInfo = localStorage.getItem('user')
+    var userInfo = localStorage.getItem('user')
     $('#userName').html(JSON.parse(userInfo).displayName)
 
     $('#register').click(function(){
@@ -121,18 +121,7 @@
  </script>
   
  <script>
-   //User 정보 확인 
-   //var userInfo = localStorage.getItem('user')
-   //$('#userName').html(JSON.parse(userInfo).display.Name)
-
-  // firebase.auth().onAuthStateChanged((user)=>{
-  //  if (user) {
-  //    console.log(user)
-  //    localStorage.setItem('user', JSON.stringify(user))
-            
-  //  }
-  //})
-
+  
   $('#login').click(function(){
     var email = $('#email').val();
     var password = $('#pw').val();
