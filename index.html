@@ -14,6 +14,7 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">사과마켓</a>
+        <span class="ms-auto mx-2" id="userName">userName</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +30,10 @@
               <a class="nav-link" href="#">Pricing</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
+              <a class="nav-link" href="upload.html">상품등록</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
             </li>
           </ul>
         </div>
@@ -57,6 +61,8 @@
     </script>
     <!-- Firebase 에서 저장된 data 가져오기 -->
     <script>
+      var userInfo = localStorage.getItem('user')
+      $('#userName').html(JSON.parse(userInfo).displayName)
      
       db.collection('product').get().then((result)=>{
         result.forEach((doc)=>{
@@ -66,7 +72,7 @@
       <div class="thumbnail" style="background-image: url('${doc.data().image}')">
       </div>
       <div class="flex-grow-1 p-4">
-        <h5 class="title"><a href="https://leekwansoo.github.io/mangomarket/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
+        <h5 class="title"><a href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
                
         <p class="content">${doc.data().content}</p>
         <p class="price">${doc.data().price}</p>
