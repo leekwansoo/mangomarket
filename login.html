@@ -91,16 +91,15 @@
      
     </div>
  <script>
-    var userInfo = localStorage.getItem('user')
-    $('#userName').html(JSON.parse(userInfo).displayName)
-
-    firebase.auth().onAuthStateChanged((user)=>{
+   firebase.auth().onAuthStateChanged((user)=>{
       if (user) {
         console.log(user.uid)
         console.log(user.displayName)
         localStorage.setItem('user',JSON.stringify(user))
       }
     })
+     var userInfo = localStorage.getItem('user')
+    $('#userName').html(JSON.parse(userInfo).displayName)
 
     $('#register').click(function(){
   
