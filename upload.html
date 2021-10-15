@@ -105,7 +105,7 @@
             }
             db.collection('product').add(item).then((result)=> {
                 console.log(result);
-                $('#upload-success').html(title + '상품이 등록 되었습니다');
+                $('#upload-success').html('상품이 등록 되었습니다');
              
             }).catch((err)=>{console.log(err);
             })
