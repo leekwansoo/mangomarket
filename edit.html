@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">사과마켓</a>
+        <span class="ms-auto mx-2" id="userName">userName</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">lists</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Pricing</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="upload.html">상품등록</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   
+  <!-- include only the Firebase features as you need -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <link href="index.css" rel="stylesheet">
+    <title>Welcome to Firebase Hosting</title>
+  </head>
+
+  <body>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBWVSK4Ik1ipF4C30h1NlUyA3GdYabo9qM",
+        authDomain: "mango-c3a51.firebaseapp.com",
+        databaseURL: "https://mango-c3a51-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mango-c3a51",
+        storageBucket: "mango-c3a51.appspot.com",
+        messagingSenderId: "175997782101",
+        appId: "1:175997782101:web:fada68b44ec07d5452acdc",        
+      };
+      firebase.initializeApp(firebaseConfig);
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+    </script>
+   
+    <!-- Firebase 에 Data Upload -->
+    
+    <div class="container mt-3">
+      <input type="text" class="form-control mt-2" id="title" placeholder="title">
+      <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
+      <input type="text" class="form-control mt-2" id="price" placeholder="price">
+      <input type="text" class="form-control mt-2" id="image" placeholder="image">
+      <button class="btn btn-danger mt-3" id="send">올리기</button>
+      <button class="btn btn-danger mt-3" id="delete">삭제하기</button>
+      <p id="modify-success"></p>
+    </div>
+    <script>
+        var userInfo = localStorage.getItem('user')
+        $('#userName').html(JSON.parse(userInfo).displayName)
+
+        var queryString = new URLSearchParams(window.location.search);
+          
+          db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+            console.log(result.data())
+            $('#title').val(result.data().title)
+            $('#content').val(result.data().content)
+            $('#price').val(result.data().price)
+            $('#image').val(result.data().image)
+           
+          })
+
+          $('#send').click(function(){
+          var updateItem = {
+            title : $('#title').val(), 
+            price : $('#price').val(),
+            content : $('#content').val(),
+            date : new Date()
+            }
+          db.collection('product').doc(queryString.get('id')).update(updateItem).then(()=>{
+            $('#modify-success').html('상품정보가 수정 되었습니다');
+          })
+         
+          })
+      </script>
+      <script>
+        var queryString = new URLSearchParams(window.location.search);
+          
+          db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+            console.log(result.data())
+            
+          })
+
+          $('#delete').click(function(){
+          var updateItem = {
+            title : $('#title').val(), 
+            image : $('#image').val(),
+            }
+          // Create a reference to the file to delete
+         
+           
+          
+          db.collection('product').doc(queryString.get('id')).delete().then(()=>{
+            $('#modify-success').html('상품정보가 삭제 되었습니다');
+          })
+         
+          })
+            
+      </script>
+   
+    
+  </body>
+</html>
