@@ -127,6 +127,7 @@
           }).catch((error)=>{
             $('#modify-success').html('Error Message: ' + error);
           })
+          })
       </script>
       <script>
         var queryString = new URLSearchParams(window.location.search);
@@ -142,9 +143,7 @@
             image : $('#image').val(),
             }
           // Create a reference to the file to delete
-         
-           
-          
+                  
           db.collection('product').doc(queryString.get('id')).delete().then(()=>{
             $('#modify-success').html('상품정보가 삭제 되었습니다');
             window.location.href = '/index.html';
