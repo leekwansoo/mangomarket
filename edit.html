@@ -124,8 +124,8 @@
           db.collection('product').doc(queryString.get('id')).update(updateItem).then(()=>{
             $('#modify-success').html('상품정보가 수정 되었습니다');
             window.location.href = 'https://leekwansoo.github.io/mangomarket/index.html';
-          })
-         
+          }).catch((error)=>{
+            $('#modify-success').html('Error Message: ' + error);
           })
       </script>
       <script>
