@@ -76,6 +76,7 @@
         <div>
           <button class="btn btn-outline-primary" id="edit">edit</button>
           <button class="btn btn-outline-secondary" id="chat">chat</button>
+          
         </div>
         <div class="container-chat">
           <textarea class="form-control mt-2" id="comment" placeholder="comment"></textarea>
@@ -83,83 +84,60 @@
           <button class="btn btn-outline-secondary" id="submit">submit</button>
 
         </div>
-        <script>
-          var userInfo = localStorage.getItem('user')
-          $('#userName').html(JSON.parse(userInfo).displayName)
-          var queryString = new URLSearchParams(window.location.search);
+      </div>
+
+      <script>
+        var userInfo = localStorage.getItem('user')
+        $('#userName').html(JSON.parse(userInfo).displayName)
+        var owneruid;
+        var title;
+
+        var queryString = new URLSearchParams(window.location.search);
+        
+        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+         
+          $('#author').html('Owner : ' + result.data().name)
+
+          $('.title').html(result.data().title)
+          $('.content').html(result.data().content)
+          $('.price').html(result.data().price)
+          $('.image').html(result.data().image)
+            var url = result.data().image
+            owneruid = result.data().uid
+            console.log(url)
+          $('.detail-pic').css('background-image', 'url(${result.data().image});')
           
-          db.collection('product').doc(queryString.get('id')).get().then((result)=>{
-            console.log(result.data())
-
-            $('#author').html('Owner : ' + result.data().name)
-
-            $('.title').html(result.data().title)
-            $('.content').html(result.data().content)
-            $('.price').html(result.data().price)
-            $('.image').html(result.data().image)
-              var url = result.data().image
-              console.log(url)
-            $('.detail-pic').css('background-image', 'url(${result.data().image});')
-           
-          })
-        </script> 
-         
-        <script>
+        })
+      
           $('#edit').click(function(){
-            window.location.href = 'https://leekwansoo.github.io/mangomarket/edit.html?id=' + queryString.get('id')
+            window.location.href = '/edit.html?id=' + queryString.get('id')
+          })
+              
+          db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+  
+            owneruid = result.data().uid;
+            title = result.data().title; 
+            console.log(owneruid, title)
           })
          
-        </script>
+          $('#chat').click(function(){
+                      
+          var myuid = JSON.parse( localStorage.getItem('user') ).uid;   
+            console.log(myuid, owneruid, title) 
+          var 데이터 = {
+            who: [myuid, owneruid],
+            title: title,
+            date : new Date()
+          }
+        db.collection('chatroom').add(데이터).then((uploadresult)=> {
+          console.log(uploadresult)
+          window.location.href = '/chat.html';
+      
+        }).catch((error)=> {console.log(error);
 
-        <script>
-                            
-        $('#chat').click(function(){
-
-          $('.container-chat').css('display', 'block')   
-        })    
-
-        $('#submit').click(function(){
-
-        var userInfo = {
-
-        comment : $('#comment').val(),
-        name : $('#nickName').val(),
-        date : new Date(),
-        uid : JSON.parse(localStorage.getItem('user')).uid,
-        name: JSON.parse(localStorage.getItem('user')).displayName
-        }
-        db.collection('chatroom').add(userInfo).then((result)=> {
-        console.log(result);
-        // window.location.href = "index.html";
-        }).catch((err)=>{console.log(err);
-        })
-
-        })
-
-    
-        $('#chat').click(function(){
-          db.collection('chatroom').get().then((result)=>{
-            result.forEach((doc)=>{
-              console.log(doc.data());
-            
-          var itemTemplate = `<div class="chatroom">
-            <div class="flex-grow-1 p-4">
-              var date = new Date(${doc.data().date});
-              <p class="comment">${doc.data().comment}</p>
-              <p class="nickName">${c.data().name}do</p>
-              <p class="date">{date}</p>
-
-            </div>
-          </div>
-        </div>`;
-          $('.container').append(itemTemplate)
         })
       })
-    })
-        </script> 
-        
-  </div>
-   
- 
-  </body>
+
+      </script> 
+    </body>
 </html>
