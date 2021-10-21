@@ -110,7 +110,7 @@
         })
       
           $('#edit').click(function(){
-            window.location.href = '/edit.html?id=' + queryString.get('id')
+            window.location.href = 'https://leekwansoo.github.io/mangomarket/edit.html?id=' + queryString.get('id')
           })
               
           db.collection('product').doc(queryString.get('id')).get().then((result)=>{
@@ -131,7 +131,7 @@
           }
         db.collection('chatroom').add(데이터).then((uploadresult)=> {
           console.log(uploadresult)
-          window.location.href = '/chat.html';
+          window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
       
         }).catch((error)=> {console.log(error);
 
