@@ -115,7 +115,7 @@
       db.collection('user').doc(result.user.uid).set(userInfo)
         console.log(result.user);
         result.user.updateProfile({displayName : name})
-        $('#register-success').html(name + 'Registered')
+        $('#register-success').html(name + 'Registered' + <br><br> +'Please Login')
       })
     .catch((error)=>{
       $('#register-success').html(error.code)
@@ -132,7 +132,7 @@
     firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
       console.log(result)
       $('#login-success').html('welcome  ' + email)
-      window.location.href = '/index.html';
+      window.location.href = 'https://leekwansoo.github.io/mangomarket/index.html';
      })
     .catch((error)=>{
       $('#login-success').html(error.code)
