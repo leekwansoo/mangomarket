@@ -109,7 +109,7 @@
         
       <script>
           $('#edit').click(function(){
-            window.location.href = '/edit.html?id=' + queryString.get('id')
+            window.location.href = 'https://leekwansoo.github.io/mangomarket/edit.html?id=' + queryString.get('id')
           })
       </script>
 
@@ -134,7 +134,7 @@
           }
         db.collection('chatroom').add(info).then((uploadresult)=> {
         console.log(uploadresult);
-        window.location.href = '/chat.html';
+        window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
         }).catch((error)=> {
           console.log(error);
         })
