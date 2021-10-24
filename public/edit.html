@@ -3,7 +3,7 @@
   <head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
-        <a class="navbar-brand" href="#">Family Album</a>
+        <a class="navbar-brand" href="#">오장로회 Album</a>
         <span class="ms-auto mx-2" id="userName">userName</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -16,22 +16,17 @@
             <li class="nav-item">
               <a class="nav-link" href="index.html">lists</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Dropdown
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Category</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="upload.html">Upload</a>
+              <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login</a>
+              <a class="nav-link" href="login.html">Login하기</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register하기</a>
             </li>
           </ul>
         </div>
@@ -67,34 +62,36 @@
       const db = firebase.firestore();
       const storage = firebase.storage();
     </script>
-   
-    <!-- Firebase 에 Data Upload -->
+
+  <div class="container">
+    <div class="product">
+      <div class="thumbnail" style="background-image: url('{url}')">
+      </div>
+        <div class="flex-grow-1 p-4">
+          <h5 class="title">{title}</h5>
+          <p class="content">{content}</p>
+        </div>
+    </div> 
+    <h5 id="author">Uploaded BY :</h5>
+          <hr>
     
     <div class="container mt-3">
+      <label>제목</label>
       <input type="text" class="form-control mt-2" id="title" placeholder="title">
+      <label>내용</label>
       <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
       <br><br>
-      <label for="family">Choose FamilyGroup:</label>
-      <select name="family" id="family">
-        <option value="TimeBridge">TimeBridge</option>
-        <option value="MontereyPark">Monterey Park</option>
-        <option value="Alhambra">Alhambra</option>
-        <option value="Others">others</option>
-      </select>
-      <br><br>
-      <label for="category">Choose Category:</label>
+      <label for="category">Category 선택:</label>
       <select name="category" id="category">
-        <option value="Family">Family</option>
-        <option value="Travel">Travel</option>
-        <option value="Lauren">Lauren Lee</option>
-        <option value="GraceII">Grace Hyun</option>
-        <option value="Event">Event</option>
-        <option value="Others">others</option>
+        <option value="Family">가족</option>
+        <option value="Travel">여행</option>
+        <option value="Event">행사</option>
+        <option value="Others">기타</option>
       </select>
       <br><br>
       <input type="text" class="form-control mt-2" id="image" placeholder="image">
-      <button class="btn btn-danger mt-3" id="send">Update</button>
-      <button class="btn btn-danger mt-3" id="delete">Delete</button>
+      <button class="btn btn-danger mt-3" id="send">수정하기</button>
+      <button class="btn btn-danger mt-3" id="delete">삭제하기</button>
       <p id="modify-success"></p>
     </div>
     <script>
@@ -105,28 +102,31 @@
           
           db.collection('product').doc(queryString.get('id')).get().then((result)=>{
             console.log(result.data())
-            $('#title').val(result.data().title)
-            $('#content').val(result.data().content)
-            $('#family').val(result.data().family)
-            $('#category').val(result.data().category)
-            $('#image').val(result.data().image)
-           
+            var url = result.data().image
+              $('.thumbnail').css('background-image', 'url("url");')
+              $('.title').html(result.data().title)
+              $('.content').html(result.data().content)
+              $('.name').html(result.data().name)
+              $('#author').html("Uploaded By: " + result.data().name)
+                            
+              $('#title').val(result.data().title)
+              $('#content').val(result.data().content)
+              $('#category').val(result.data().category)
+              $('#image').val(result.data().image)
+                      
           })
 
           $('#send').click(function(){
           var updateItem = {
             title : $('#title').val(), 
             content : $('#content').val(),
-            family : $('#family').val(),
             category : $('#category').val(),
-            date : new Date()
-            }
+           }
           db.collection('product').doc(queryString.get('id')).update(updateItem).then(()=>{
-            $('#modify-success').html('상품정보가 수정 되었습니다');
-            window.location.href = 'https://leekwansoo.github.io/mangomarket/index.html';
-          }).catch((error)=>{
-            $('#modify-success').html('Error Message: ' + error);
+            $('#modify-success').html('내용이 수정 되었습니다');
+            window.location.href = '/index.html';
           })
+         
           })
       </script>
       <script>
@@ -134,7 +134,7 @@
           
           db.collection('product').doc(queryString.get('id')).get().then((result)=>{
             console.log(result.data())
-            
+           
           })
 
           $('#delete').click(function(){
@@ -143,10 +143,9 @@
             image : $('#image').val(),
             }
           // Create a reference to the file to delete
-                  
+                 
           db.collection('product').doc(queryString.get('id')).delete().then(()=>{
-            $('#modify-success').html('상품정보가 삭제 되었습니다');
-            window.location.href = '/index.html';
+            $('#modify-success').html('삭제 되었습니다');
           })
          
           })

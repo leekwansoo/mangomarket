@@ -25,6 +25,9 @@
             <li class="nav-item">
               <a class="nav-link" href="login.html">Login</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register하기</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -56,87 +59,88 @@
         appId: "1:175997782101:web:fada68b44ec07d5452acdc",        
       };
       firebase.initializeApp(firebaseConfig);
+
       const db = firebase.firestore();
       const storage = firebase.storage();
     </script>
    
-    <!-- Firebase 에 Data Upload -->
-    
-    <div class="container mt-3">
-      <input type="text" class="form-control mt-2" id="title" placeholder="title">
-      <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
-      <br><br>
-      <label for="family">Choose FamilyGroup:</label>
-      <select name="family" id="family">
-        <option value="TimeBridge">TimeBridge</option>
-        <option value="MontereyPark">Monterey Park</option>
-        <option value="Alhambra">Alhambra</option>
-        <option value="Others">others</option>
-      </select>
-      <br><br>
-      <label for="category">Choose Category:</label>
-      <select name="category" id="category">
-        <option value="Family">Family</option>
-        <option value="Travel">Travel</option>
-        <option value="Lauren">Lauren Lee</option>
-        <option value="GraceII">Grace Hyun</option>
-        <option value="Event">Event</option>
-        <option value="Others">others</option>
-      </select>
-      <br><br>
-      <input class="form-control mt-2" type="file" id="image">
-      <button class="btn btn-danger mt-3" id="send">Upload</button>
-      <p id="upload-success"></p>
-    </div>
-   
-    <script>
+    <div class="container"> 
+        Detail Page 
+        <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
+
+        <div>
+          <h5 id="author">Uploaded BY :</h5>
+          <hr>
+          <h5 class="title">{title}</h5>
+          <p class="content">{content}</p>
+          <p class="category">{category}</p>
+          <p class="image">{image}</p>
+        </div>
+        <div>
+          <button class="btn btn-outline-primary" id="edit">edit</button>
+          <button class="btn btn-outline-secondary" id="chat">chat</button>
+          
+        </div>
+        <div class="container-chat">
+          <textarea class="form-control mt-2" id="comment" placeholder="comment"></textarea>
+          <input type="text" class="nickName" id="nickName" placeholder="NickName">
+          <button class="btn btn-outline-secondary" id="submit">submit</button>
+
+        </div>
+      </div>
+      <script>
         var userInfo = localStorage.getItem('user')
         $('#userName').html(JSON.parse(userInfo).displayName)
-                
-        $('#send').click(function(){
-
-            var file = document.querySelector('#image').files[0];
-            var storageRef = storage.ref();
-            var storagePath = storageRef.child('image/' + file.name);
-            var upload작업 = storagePath.put(file);
-
-            upload작업.on( 'state_changed', 
-            // 변화시 동작하는 함수 
-            null, 
-            //에러시 동작하는 함수
-            (error) => {
-              console.error('error message', error);
-            }, 
-            // 성공시 동작하는 함수
-            () => {
-              upload작업.snapshot.ref.getDownloadURL().then((url) => {
-                console.log('upload Path', url);
-                
-                var item = {
-                title : $('#title').val(), 
-                content : $('#content').val(),
-                family : $('#family').val(),
-                category : $('#category').val(),
-                date : new Date(),
-                image: url,
-                uid : JSON.parse(localStorage.getItem('user')).uid,
-                name: JSON.parse(localStorage.getItem('user')).displayName
-            }
-            db.collection('product').add(item).then((result)=> {
-                console.log(result);
-                $('#upload-success').html('Picture is Uploaded');
-             
-            }).catch((error)=>{
-              console.log(error);
-              $('#upload-success').html(error);
-            })
-
-              });
-            }
-        );
+        var queryString = new URLSearchParams(window.location.search);
         
-    })
-    </script>
-  
-  </body>
+        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+         
+          $('#author').html('Owner : ' + result.data().name)
+          $('.title').html(result.data().title)
+          $('.content').html(result.data().content)
+          $('.price').html(result.data().price)
+          $('.image').html(result.data().image)
+            var url = result.data().image
+            console.log(url)
+          $('.detail-pic').css('background-image', 'url(${result.data().image});')
+          
+        })
+      </script> 
+        
+      <script>
+          $('#edit').click(function(){
+            window.location.href = '/edit.html?id=' + queryString.get('id')
+          })
+      </script>
+
+      <script>  
+        var owneruid;
+        var title; 
+        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+
+          owneruid = result.data().uid;
+          title = result.data().title; 
+        })
+        console.log(owneruid, title); 
+          
+        $('#chat').click(function(){
+
+          var myuid = JSON.parse( localStorage.getItem('user') ).uid;   
+                    
+          var info = {
+            who: [myuid, owneruid],
+            title: title,
+            date : new Date()
+          }
+        db.collection('chatroom').add(info).then((uploadresult)=> {
+        console.log(uploadresult);
+        window.location.href = '/chat.html';
+        }).catch((error)=> {
+          console.log(error);
+        })
+        
+        })
+       
+      </script> 
+    </body>
 </html>

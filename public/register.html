@@ -25,6 +25,9 @@
             <li class="nav-item">
               <a class="nav-link" href="login.html">Login</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="register.html">Register하기</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -59,85 +62,57 @@
 
       const db = firebase.firestore();
       const storage = firebase.storage();
+
     </script>
    
-    <div class="container"> 
-        Detail Page 
-        <div class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
-
-        <div>
-          <h5 id="author">Uploaded BY :</h5>
-          <hr>
-          <h5 class="title">{title}</h5>
-          <p class="content">{content}</p>
-          <p class="category">{category}</p>
-          <p class="image">{image}</p>
-        </div>
-        <div>
-          <button class="btn btn-outline-primary" id="edit">edit</button>
-          <button class="btn btn-outline-secondary" id="chat">chat</button>
-          
-        </div>
-        <div class="container-chat">
-          <textarea class="form-control mt-2" id="comment" placeholder="comment"></textarea>
-          <input type="text" class="nickName" id="nickName" placeholder="NickName">
-          <button class="btn btn-outline-secondary" id="submit">submit</button>
-
-        </div>
+   <div class="container mt-3">
+      <div class="mb-3">
+        <input type="text" class="form-control" placeholder="name" id="name-new">
       </div>
+      <div class="mb-3">
+        <input type="email" class="form-control" placeholder="email" id="email-new">
+      </div>
+      <div class="mb-3">
+        <input type="password" class="form-control" placeholder="pw" id="pw-new">
+      </div>
+      <button type="submit" class="btn btn-primary" id="register">Register</button>
+      <p id="register-success"></p>
+    </div>
 
-      <script>
-        var userInfo = localStorage.getItem('user')
-        $('#userName').html(JSON.parse(userInfo).displayName)
-        var owneruid;
-        var title;
-
-        var queryString = new URLSearchParams(window.location.search);
+    
+ <script>
+    
+    firebase.auth().onAuthStateChanged((user)=>{
+      if (user) {
+        console.log(user.uid)
+        console.log(user.displayName)
+        localStorage.setItem('user',JSON.stringify(user))
         
-        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
-         
-          $('#author').html('Owner : ' + result.data().name)
+      }
+    })
 
-          $('.title').html(result.data().title)
-          $('.content').html(result.data().content)
-          $('.price').html(result.data().price)
-          $('.image').html(result.data().image)
-            var url = result.data().image
-            owneruid = result.data().uid
-            console.log(url)
-          $('.detail-pic').css('background-image', 'url(${result.data().image});')
-          
-        })
-      
-          $('#edit').click(function(){
-            window.location.href = 'https://leekwansoo.github.io/mangomarket/edit.html?id=' + queryString.get('id')
-          })
-              
-          db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+    $('#register').click(function(){
   
-            owneruid = result.data().uid;
-            title = result.data().title; 
-            console.log(owneruid, title)
-          })
-         
-          $('#chat').click(function(){
-                      
-          var myuid = JSON.parse( localStorage.getItem('user') ).uid;   
-            console.log(myuid, owneruid, title) 
-          var 데이터 = {
-            who: [myuid, owneruid],
-            title: title,
-            date : new Date()
-          }
-        db.collection('chatroom').add(데이터).then((uploadresult)=> {
-          console.log(uploadresult)
-          window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
-      
-        }).catch((error)=> {console.log(error);
+    var email = $('#email-new').val();
+    var password = $('#pw-new').val();
+    var name = $('#name-new').val();
 
-        })
+    firebase.auth().createUserWithEmailAndPassword(email, password).then((result)=>{
+      var userInfo = {
+        name : name,
+        email : email
+      }
+      db.collection('user').doc(result.user.uid).set(userInfo)
+        console.log(result.user);
+        result.user.updateProfile({displayName : name})
+        $('#register-success').html(name + 'Registered')
+        window.location.href = '/login.html';
       })
-
-      </script> 
-    </body>
+    .catch((error)=>{
+      $('#register-success').html(error.code)
+    })
+   })
+ </script>
+  
+</body>
 </html>

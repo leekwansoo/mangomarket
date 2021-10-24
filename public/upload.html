@@ -25,6 +25,9 @@
             <li class="nav-item">
               <a class="nav-link" href="login.html">Login</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register하기</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -56,97 +59,77 @@
         appId: "1:175997782101:web:fada68b44ec07d5452acdc",        
       };
       firebase.initializeApp(firebaseConfig);
-
       const db = firebase.firestore();
       const storage = firebase.storage();
-
     </script>
    
-   <div class="container mt-3">
-      <div class="mb-3">
-        <input type="text" class="form-control" placeholder="name" id="name-new">
-      </div>
-      <div class="mb-3">
-        <input type="email" class="form-control" placeholder="email" id="email-new">
-      </div>
-      <div class="mb-3">
-        <input type="password" class="form-control" placeholder="pw" id="pw-new">
-      </div>
-      <button type="submit" class="btn btn-primary" id="register">Register</button>
-      <p id="register-success"></p>
-    </div>
-
-    <div class="container mt-3">
-      <div class="mb-3">
-        <input type="email" class="form-control" placeholder="email" id="email">
-      </div>
-      <div class="mb-3">
-        <input type="password" class="form-control" placeholder="pw" id="pw">
-      </div>
-      <button type="submit" class="btn btn-primary" id="login">Login</button>
-      <button type="submit" class="btn btn-primary" id="logout">Logout</button>
-      
-      <p id="login-success"></p>
-      <p id="logout-success"></p>
-     
-    </div>
- <script>
+    <!-- Firebase 에 Data Upload -->
     
-    firebase.auth().onAuthStateChanged((user)=>{
-      if (user) {
-        console.log(user.uid)
-        console.log(user.displayName)
-        localStorage.setItem('user',JSON.stringify(user))
+    <div class="container mt-3">
+      <input type="text" class="form-control mt-2" id="title" placeholder="제목">
+      <textarea class="form-control mt-2" id="content" placeholder="내용"></textarea>
+      <br><br>
+      <label for="category">Category 선택:</label>
+      <select name="category" id="category">
+        <option value="Family">가족</option>
+        <option value="Travel">여행</option>
+        <option value="Event">행사</option>
+        <option value="Others">기타</option>
+      </select>
+      <br><br>
+      <input class="form-control mt-2" type="file" id="image">
+      <button class="btn btn-danger mt-3" id="send">사진올리기</button>
+      <p id="upload-success"></p>
+    </div>
+   
+    <script>
+        var userInfo = localStorage.getItem('user')
+        $('#userName').html(JSON.parse(userInfo).displayName)
+                
+        $('#send').click(function(){
+
+            var file = document.querySelector('#image').files[0];
+            var storageRef = storage.ref();
+            var storagePath = storageRef.child('image/' + file.name);
+            var upload작업 = storagePath.put(file);
+
+            upload작업.on( 'state_changed', 
+            // 변화시 동작하는 함수 
+            null, 
+            //에러시 동작하는 함수
+            (error) => {
+              console.error('error message', error);
+            }, 
+            // 성공시 동작하는 함수
+            () => {
+              upload작업.snapshot.ref.getDownloadURL().then((url) => {
+                console.log('upload Path', url);
+                
+                var item = {
+                title : $('#title').val(), 
+                content : $('#content').val(),
+                family : $('#family').val(),
+                category : $('#category').val(),
+                date : new Date(),
+                image: url,
+                uid : JSON.parse(localStorage.getItem('user')).uid,
+                name: JSON.parse(localStorage.getItem('user')).displayName
+            }
+            db.collection('product').add(item).then((result)=> {
+                console.log(result);
+                $('#upload-success').html('사진이 올려졌습니다');
+             
+            }).catch((error)=>{
+              console.log(error);
+              $('#upload-success').html(error);
+            })
+
+              });
+            }
+        );
         
-      }
     })
-
-    $('#register').click(function(){
+    </script>
   
-    var email = $('#email-new').val();
-    var password = $('#pw-new').val();
-    var name = $('#name-new').val();
-
-    firebase.auth().createUserWithEmailAndPassword(email, password).then((result)=>{
-      var userInfo = {
-        name : name,
-        email : email
-      }
-      db.collection('user').doc(result.user.uid).set(userInfo)
-        console.log(result.user);
-        result.user.updateProfile({displayName : name})
-        $('#register-success').html(name + 'Registered' + <br><br> +'Please Login')
-      })
-    .catch((error)=>{
-      $('#register-success').html(error.code)
-    })
-   })
- </script>
-  
- <script>
-  
-
-  $('#login').click(function(){
-    var email = $('#email').val();
-    var password = $('#pw').val();
-    firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
-      console.log(result)
-      $('#login-success').html('welcome  ' + email)
-      window.location.href = 'https://leekwansoo.github.io/mangomarket/index.html';
-     })
-    .catch((error)=>{
-      $('#login-success').html(error.code)
-    })
-    })
-
-  $('#logout').click(function(){
-    firebase.auth().signOut().then((result)=>{
-    //console.log(result.user)
-    $('#logout-success').html('Good Bye')
-    localStorage.removeItem('user')
-   })
-  })
- </script>
-     
   </body>
 </html>
