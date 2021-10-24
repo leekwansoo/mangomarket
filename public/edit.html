@@ -124,7 +124,7 @@
            }
           db.collection('product').doc(queryString.get('id')).update(updateItem).then(()=>{
             $('#modify-success').html('내용이 수정 되었습니다');
-            window.location.href = 'https://leekwansoo.github.io/public/index.html';
+            window.location.href = 'https://leekwansoo.github.io/mangomarket/public/index.html';
           })
          
           })
@@ -146,7 +146,7 @@
                  
           db.collection('product').doc(queryString.get('id')).delete().then(()=>{
             $('#modify-success').html('삭제 되었습니다');
-            window.location.href = 'https://leekwansoo.github.io/public/index.html';
+            window.location.href = 'https://leekwansoo.github.io/mangomarket/public/index.html';
           })
          
           })
