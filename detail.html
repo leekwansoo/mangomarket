@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Family Album</a>
+        <span class="ms-auto mx-2" id="userName">userName</span>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Lists</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Category</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="upload.html">Upload</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="login.html">Login</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="register.html">Register하기</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+   
+  <!-- include only the Firebase features as you need -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
+  <link href="index.css" rel="stylesheet">
+    <title>Welcome to Firebase Hosting</title>
+  </head>
+
+  <body>
+    <script>
+      var firebaseConfig = {
+        apiKey: "AIzaSyBWVSK4Ik1ipF4C30h1NlUyA3GdYabo9qM",
+        authDomain: "mango-c3a51.firebaseapp.com",
+        databaseURL: "https://mango-c3a51-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "mango-c3a51",
+        storageBucket: "mango-c3a51.appspot.com",
+        messagingSenderId: "175997782101",
+        appId: "1:175997782101:web:fada68b44ec07d5452acdc",        
+      };
+      firebase.initializeApp(firebaseConfig);
+
+      const db = firebase.firestore();
+      const storage = firebase.storage();
+    </script>
+   
+    <div class="container"> 
+        Detail Page 
+        <div id = "picture" class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
+
+        <div>
+          <h5 id="author">Uploaded BY :</h5>
+          <hr>
+          <h5 class="title">{title}</h5>
+          <p class="content">{content}</p>
+          <p class="category">{category}</p>
+          <p class="image">{image}</p>
+        </div>
+        <div>
+          <button class="btn btn-outline-primary" id="edit">edit</button>
+          <button class="btn btn-outline-secondary" id="chat">chat</button>
+          
+        </div>
+        <div class="container-chat">
+          <textarea class="form-control mt-2" id="comment" placeholder="comment"></textarea>
+          <input type="text" class="nickName" id="nickName" placeholder="NickName">
+          <button class="btn btn-outline-secondary" id="submit">submit</button>
+
+        </div>
+      </div>
+      <script>
+        var userInfo = localStorage.getItem('user')
+        $('#userName').html(JSON.parse(userInfo).displayName)
+        var queryString = new URLSearchParams(window.location.search);
+        
+        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+         
+          $('#author').html('Owner : ' + result.data().name)
+          $('.title').html(result.data().title)
+          $('.content').html(result.data().content)
+          $('.price').html(result.data().price)
+          $('.image').html(result.data().image)
+            var url = result.data().image
+            console.log(url)
+          $('#picture').css('background-image', 'url("https://firebasestorage.googleapis.com/v0/b/mango-c3a51.appspot.com/o/image%2F20190608_152339.jpg?alt=media&token=632d5d33-cc96-4ece-8de8-9b8639b56768");')
+          
+        })
+      </script> 
+        
+      <script>
+          $('#edit').click(function(){
+            window.location.href = '/edit.html?id=' + queryString.get('id')
+          })
+      </script>
+
+      <script>  
+        var owneruid;
+        var title; 
+        db.collection('product').doc(queryString.get('id')).get().then((result)=>{
+
+          owneruid = result.data().uid;
+          title = result.data().title; 
+        })
+        console.log(owneruid, title); 
+          
+        $('#chat').click(function(){
+
+          var myuid = JSON.parse( localStorage.getItem('user') ).uid;   
+                    
+          var info = {
+            who: [myuid, owneruid],
+            title: title,
+            date : new Date()
+          }
+        db.collection('chatroom').add(info).then((uploadresult)=> {
+        console.log(uploadresult);
+        window.location.href = '/chat.html';
+        }).catch((error)=> {
+          console.log(error);
+        })
+        
+        })
+       
+      </script> 
+    </body>
+</html>
