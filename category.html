@@ -88,7 +88,7 @@
         <p class="family">${"올린이 : " + doc.data().name}</p>
         <p class="family" id="ownerid">${doc.data().uid}</p>
         <p class="date" >${doc.data().date}</p>
-        <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">edit</a></h5>
+        <h5 class="edit-button"><a href="https://leekwansoo.github.io/edit.html?id=${doc.id}">edit</a></h5>
         <button id="chat"></button>
         <p class="float-end">🤍0</p>
               
@@ -111,7 +111,7 @@
     }
     db.collection('chatroom').add(info).then((uploadresult)=> {
     console.log(uploadresult);
-    window.location.href = '/chat.html';
+    window.location.href = 'https://leekwansoo.github.io/chat.html';
     }).catch((error)=> {console.log(error);
     })
     })
