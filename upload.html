@@ -14,26 +14,12 @@
               <a class="nav-link active" aria-current="page" href="list.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="list.html">Lists</a>
+              <a class="nav-link" href="list.html">사진목록</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="category.html">가정</a></li>
-                <li><a class="dropdown-item" href="category.html">여행</a></li>
-                <li><a class="dropdown-item" href="category.html">행사</a></li>
-                <li><a class="dropdown-item" href="category.html">기타</a></li>
-                <li><hr class="dropdown-divider"></li>
-              </ul>
-            </li>
+            
             <li class="nav-item">
-<<<<<<< HEAD
+
               <a class="nav-link" href="#">사진올리기</a>
-=======
-              <a class="nav-link" href="#">Upload</a>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             </li>
             <li class="nav-item">
               <a class="nav-link" href="index.html">Login</a>
@@ -103,24 +89,15 @@
         var userInfo = localStorage.getItem('user')
         $('#userName').html(JSON.parse(userInfo).displayName)
 
-<<<<<<< HEAD
+
         $('#image').change(function(){
             const [file] = image.files
             if (file) {
                 blah.src = URL.createObjectURL(file)
             }
             })
-                       
-=======
-        $('#fetch').click(function(){
-          var file = document.querySelector('#image').files[0];
-          console.log(file)
-          var template = `<div class="thumbnail" style="background-image: url('file')">
-              <div>`;
-            $('.container').append(template)
-        })
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
-                
+                   
+           
         $('#send').click(function(){
 
             var file = document.querySelector('#image').files[0];
@@ -152,11 +129,8 @@
             db.collection('product').add(item).then((result)=> {
                 console.log(result);
                 $('#upload-success').html('사진이 올려졌습니다');
-<<<<<<< HEAD
-                window.location.href = '/list.html';
-=======
                 window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
+
             }).catch((error)=>{
               console.log(error);
               $('#upload-success').html(error);
