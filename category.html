@@ -22,26 +22,12 @@
           <ul class="navbar-nav">
             <li class="nav-item">
               <a class="nav-link active" aria-current="page" href="list.html">Home</a>
-<<<<<<< HEAD
-=======
+
             </li>
             <li class="nav-item">
               <a class="nav-link" href="list.html">Lists</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="category.html">가정</a></li>
-                <li><a class="dropdown-item" href="category.html">여행</a></li>
-                <li><a class="dropdown-item" href="category.html">행사</a></li>
-                <li><a class="dropdown-item" href="category.html">기타</a></li>
-                <li><hr class="dropdown-divider"></li>
-              </ul>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
-            </li>
-               
+                    
                 <select name="category" id="category">
                   <option value="Event">행사</option>
                   <option value="Others">여행</option>
@@ -52,16 +38,13 @@
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
-<<<<<<< HEAD
-           
-=======
             <li class="nav-item">
               <a class="nav-link" href="index.html">Login하기</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="register.html">Register하기</a>
+              <a class="nav-link" href="register.html">등록하기</a>
             </li>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
+
           </ul>
         </div>
       </div>
@@ -101,18 +84,12 @@
         </div>
         <div class="flex-grow-1 p-4">
         <h5 class="title"><a href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
-          
         <p class="content">${doc.data().content}</p>
         <p class="category">${doc.data().category}</p>
         <p class="family">${"올린이 : " + doc.data().name}</p>
         <p class="family" id="ownerid">${doc.data().uid}</p>
         <p class="date" >${doc.data().date}</p>
-<<<<<<< HEAD
-        <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">edit</a></h5>
-=======
-        <h5 class="edit-button"><a href="https://leekwansoo.github.io/edit.html?id=${doc.id}">edit</a></h5>
-        <button id="chat"></button>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
+        <h5 class="edit-button"><a href="https://leekwansoo.github.io/mangomarket/edit.html?id=${doc.id}">수정</a></h5>
         <p class="float-end">🤍0</p>
               
         </div>
@@ -124,9 +101,8 @@
 
     </script>
 
-<<<<<<< HEAD
-    <div class="container mt-3">
-=======
+   <div class="container mt-3">
+
     var owneruid; 
     db.collection('product').doc(doc.id).get().then((result)=>{
       ownerid = result.data().uid;
@@ -139,7 +115,7 @@
     }
     db.collection('chatroom').add(info).then((uploadresult)=> {
     console.log(uploadresult);
-    window.location.href = 'https://leekwansoo.github.io/chat.html';
+    window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
     }).catch((error)=> {console.log(error);
     })
     })
@@ -147,7 +123,6 @@
     </script> 
     
      <div class="container mt-3">
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
       
     </div> 
   </body>
