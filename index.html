@@ -109,13 +109,11 @@
     var password = $('#pw').val();
     firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
       console.log(result)
-      $('#email').val('')
-      $('#pw').val('')
-      
-      window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html.;
+       $('#login-success').html("Login 뙤었습니다")
+      window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
       })
     .catch((error)=>{
-      $('#login-success').html(error.code)
+      $('#login-success').html(errorcode)
       })
     })
 
