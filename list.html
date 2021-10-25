@@ -24,27 +24,14 @@
               <a class="nav-link active" aria-current="page" href="list.html">Home</a>
             </li>
             <li class="nav-item">
-<<<<<<< HEAD:list.html
+
               <a class="nav-link" href="#">사진목록</a>
             </li>
+           
             <li class="nav-item">
-              <a class="nav-link" href="category.html">Category 별 사진목록</a>
-=======
-              <a class="nav-link" href="list.html">Lists</a>
+              <a class="nav-link" href="category.html">Category</a>
             </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="category.html">가정</a></li>
-                <li><a class="dropdown-item" href="category.html">여행</a></li>
-                <li><a class="dropdown-item" href="category.html">행사</a></li>
-                <li><a class="dropdown-item" href="category.html">기타</a></li>
-                <li><hr class="dropdown-divider"></li>
-              </ul>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c:public/index.html
-            </li>
+           
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
@@ -88,22 +75,13 @@
         <div class="thumbnail" style="background-image: url('${doc.data().image}')">
         </div>
         <div class="flex-grow-1 p-4">
-<<<<<<< HEAD:list.html
-        <h5 class="title"><a href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
-=======
+
         <h5 class="title"><a href="https://leekwansoo.github.io/mangomarket/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c:public/index.html
-          
         <p class="content">${doc.data().content}</p>
         <p class="category">${doc.data().category}</p>
         <p class="family">${"올린이 : " + doc.data().name}</p>
         <p class="date" >${doc.data().date}</p>
-<<<<<<< HEAD:list.html
-        <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">수정</a></h5>
-=======
-        <h5 class="edit-button"><a href="https://leekwansoo.github.io/mangomarket/edit.html?id=${doc.id}">edit</a></h5>
-        <button id="chat">chat</button>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c:public/index.html
+        <h5 class="edit-button"><a href="https://leekwansoo.github.io/mangomarket/edit.html?id=${doc.id}">수정</a></h5>
         <p class="float-end">🤍0</p>
               
       </div>
@@ -125,12 +103,10 @@
     }
     db.collection('chatroom').add(info).then((uploadresult)=> {
     console.log(uploadresult);
-<<<<<<< HEAD:list.html
-    window.location.href = '/chat.html';
-=======
+
     window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c:public/index.html
-    }).catch((error)=> {console.log(error);
+
+     }).catch((error)=> {console.log(error);
     })
     })
   })
