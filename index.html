@@ -114,21 +114,14 @@
     var password = $('#pw').val();
     firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
       console.log(result)
-<<<<<<< HEAD
-      $('#email').val('')
-      $('#pw').val('')
+        $('#login-success').html("Login 되었습니다")
+        window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
       
-      window.location.href = '/list.html';
       })
     .catch((error)=>{
       $('#login-success').html(error.code)
-=======
-       $('#login-success').html("Login 뙤었습니다")
-      window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
-      })
-    .catch((error)=>{
-      $('#login-success').html(errorcode)
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
+
+    
       })
     })
 
