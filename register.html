@@ -35,7 +35,11 @@
               <a class="nav-link" href="index.html">Login</a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
                 <a class="nav-link" href="#">등록하기</a>
+=======
+                <a class="nav-link" href="#">Register하기</a>
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             </li>
           </ul>
         </div>
@@ -114,8 +118,13 @@
       db.collection('user').doc(result.user.uid).set(userInfo)
         console.log(result.user);
         result.user.updateProfile({displayName : name})
+<<<<<<< HEAD
         $('#register-success').html(name + '님 등록되었습니다')
         window.location.href = '/index.html';
+=======
+        $('#register-success').html(name + 'Registered')
+        window.location.href = 'https://leekwansoo.github.io/mangomarket/login.html';
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
       })
     .catch((error)=>{
       $('#register-success').html(error.code)

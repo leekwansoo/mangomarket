@@ -3,8 +3,13 @@
   <head>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
+<<<<<<< HEAD
         <a class="navbar-brand" href="#">오장로 Album</a>
         <span class="ms-auto mx-2" id="userName">사용자</span>
+=======
+        <a class="navbar-brand" href="#">Family Album</a>
+        <span class="ms-auto mx-2" id="userName">userName</span>
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
@@ -29,7 +34,7 @@
                 </ul>
               </li>
             <li class="nav-item">
-              <a class="nav-link" href="upload.html">사진올리기</a>
+              <a class="nav-link" href="upload.html">Upload</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="index.html">Login</a>
@@ -109,6 +114,7 @@
     var password = $('#pw').val();
     firebase.auth().signInWithEmailAndPassword(email, password).then((result)=>{
       console.log(result)
+<<<<<<< HEAD
       $('#email').val('')
       $('#pw').val('')
       
@@ -116,6 +122,13 @@
       })
     .catch((error)=>{
       $('#login-success').html(error.code)
+=======
+       $('#login-success').html("Login 뙤었습니다")
+      window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
+      })
+    .catch((error)=>{
+      $('#login-success').html(errorcode)
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
       })
     })
 

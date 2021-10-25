@@ -14,16 +14,14 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">오장로회 Album</a>
-        <span class="ms-auto mx-2" id="userName">사용자</span>
+        <span class="ms-auto mx-2" id="userName">userName</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="list.html">Home</a>
-<<<<<<< HEAD
-=======
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="list.html">Lists</a>
@@ -39,29 +37,16 @@
                 <li><a class="dropdown-item" href="category.html">기타</a></li>
                 <li><hr class="dropdown-divider"></li>
               </ul>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             </li>
-               
-                <select name="category" id="category">
-                  <option value="Event">행사</option>
-                  <option value="Others">여행</option>
-                  <option value="Travel">교회  </option>
-                  <option value="Event">일상</option>
-                  <option value="Others">기타</option>
-                </select>
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
-<<<<<<< HEAD
-           
-=======
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Login하기</a>
+              <a class="nav-link" href="login.html">Login하기</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="register.html">Register하기</a>
             </li>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
           </ul>
         </div>
       </div>
@@ -88,12 +73,8 @@
     </script>
     <!-- Firebase 에서 저장된 data 가져오기 -->
     <script>
-
-      $('#category').change(function(){
-
-      var catvalue = $('#category').val()
-         console.log(catvalue)
-      db.collection('product').where('category', '==', 'catvalue').get().then((result)=>{
+         
+      db.collection('product').get().then((result)=>{
         result.forEach((doc)=>{
       
       var template = `<div class="product">
@@ -105,28 +86,18 @@
         <p class="content">${doc.data().content}</p>
         <p class="category">${doc.data().category}</p>
         <p class="family">${"올린이 : " + doc.data().name}</p>
-        <p class="family" id="ownerid">${doc.data().uid}</p>
         <p class="date" >${doc.data().date}</p>
-<<<<<<< HEAD
         <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">edit</a></h5>
-=======
-        <h5 class="edit-button"><a href="https://leekwansoo.github.io/edit.html?id=${doc.id}">edit</a></h5>
         <button id="chat"></button>
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
         <p class="float-end">🤍0</p>
               
-        </div>
-        </div>`;
+      </div>
+      </div>`;
       $('.container').append(template)
     })
-  })
-  })
 
-    </script>
+    $('#chat').click(function(){
 
-<<<<<<< HEAD
-    <div class="container mt-3">
-=======
     var owneruid; 
     db.collection('product').doc(doc.id).get().then((result)=>{
       ownerid = result.data().uid;
@@ -139,7 +110,7 @@
     }
     db.collection('chatroom').add(info).then((uploadresult)=> {
     console.log(uploadresult);
-    window.location.href = 'https://leekwansoo.github.io/chat.html';
+    window.location.href = '/chat.html';
     }).catch((error)=> {console.log(error);
     })
     })
@@ -147,7 +118,6 @@
     </script> 
     
      <div class="container mt-3">
->>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
       
     </div> 
   </body>

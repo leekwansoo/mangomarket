@@ -1,5 +1,9 @@
 .product {
+<<<<<<< HEAD
    padding: 10px;
+=======
+    padding: 10px;
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
   }
   .thumbnail {
     width: 340px;
@@ -98,4 +102,8 @@
   }
   .mine {
     float: right;
+<<<<<<< HEAD
   }
+=======
+  }
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c

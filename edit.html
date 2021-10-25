@@ -14,10 +14,26 @@
               <a class="nav-link active" aria-current="page" href="list.html">Home</a>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
               <a class="nav-link" href="list.html">사진목록</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="category.html">Category별</a>
+=======
+              <a class="nav-link" href="list.html">lists</a>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="category.html">가정</a></li>
+                <li><a class="dropdown-item" href="category.html">여행</a></li>
+                <li><a class="dropdown-item" href="category.html">행사</a></li>
+                <li><a class="dropdown-item" href="category.html">기타</a></li>
+                <li><hr class="dropdown-divider"></li>
+              </ul>
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             </li>
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
@@ -148,7 +164,11 @@
           // Create a reference to the file to delete
                  
           db.collection('product').doc(queryString.get('id')).delete().then(()=>{
+<<<<<<< HEAD
             $('#modify-success').html('내용이 삭제 되었습니다');
+=======
+            $('#modify-success').html('삭제 되었습니다');
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
              window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
           })
          

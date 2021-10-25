@@ -29,7 +29,11 @@
               </ul>
             </li>
             <li class="nav-item">
+<<<<<<< HEAD
               <a class="nav-link" href="#">사진올리기</a>
+=======
+              <a class="nav-link" href="#">Upload</a>
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             </li>
             <li class="nav-item">
               <a class="nav-link" href="index.html">Login</a>
@@ -87,6 +91,7 @@
       <br><br>
       <div>
       <input class="form-control mt-2" type="file" id="image">
+      <button class="btn btn-danger mt-3" id="fetch">사진불러오기</button>
       <button class="btn btn-danger mt-3" id="send">사진올리기</button>
       <p id="upload-success"></p>
       <img class="thumbnail" id="blah" src="#" alt="your image" />
@@ -98,6 +103,7 @@
         var userInfo = localStorage.getItem('user')
         $('#userName').html(JSON.parse(userInfo).displayName)
 
+<<<<<<< HEAD
         $('#image').change(function(){
             const [file] = image.files
             if (file) {
@@ -105,6 +111,15 @@
             }
             })
                        
+=======
+        $('#fetch').click(function(){
+          var file = document.querySelector('#image').files[0];
+          console.log(file)
+          var template = `<div class="thumbnail" style="background-image: url('file')">
+              <div>`;
+            $('.container').append(template)
+        })
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
                 
         $('#send').click(function(){
 
@@ -137,7 +152,11 @@
             db.collection('product').add(item).then((result)=> {
                 console.log(result);
                 $('#upload-success').html('사진이 올려졌습니다');
+<<<<<<< HEAD
                 window.location.href = '/list.html';
+=======
+                window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
+>>>>>>> 70217eb13c069e2e2432fbe7d94a0a2b4b6d6f2c
             }).catch((error)=>{
               console.log(error);
               $('#upload-success').html(error);
