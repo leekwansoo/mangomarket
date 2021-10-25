@@ -14,10 +14,19 @@
               <a class="nav-link active" aria-current="page" href="index.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">Lists</a>
+              <a class="nav-link" href="list.html">Lists</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Category</a>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Category
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <li><a class="dropdown-item" href="category.html">가정</a></li>
+                <li><a class="dropdown-item" href="category.html">여행</a></li>
+                <li><a class="dropdown-item" href="category.html">행사</a></li>
+                <li><a class="dropdown-item" href="category.html">기타</a></li>
+                <li><hr class="dropdown-divider"></li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="upload.html">Upload</a>
@@ -26,7 +35,7 @@
               <a class="nav-link" href="login.html">Login</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="register.html">Register하기</a>
+                <a class="nav-link" href="#">Register하기</a>
             </li>
           </ul>
         </div>
@@ -43,7 +52,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
-  <link href="index.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
     <title>Welcome to Firebase Hosting</title>
   </head>
 

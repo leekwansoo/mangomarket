@@ -24,7 +24,7 @@
               <a class="nav-link active" aria-current="page" href="#">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="list.html">Lists</a>
+              <a class="nav-link" href="#">Lists</a>
             </li>
             <li class="nav-item dropdown">
               <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -81,15 +81,14 @@
         <div class="thumbnail" style="background-image: url('${doc.data().image}')">
         </div>
         <div class="flex-grow-1 p-4">
-        <h5 class="title"><a href="/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
+        <h5 class="title"><a href="https://leekwansoo.github.io/mangomarket/detail.html?id=${doc.id}">${doc.data().title}</a></h5>
           
         <p class="content">${doc.data().content}</p>
         <p class="category">${doc.data().category}</p>
         <p class="family">${"올린이 : " + doc.data().name}</p>
-        <p class="family" id="ownerid">${doc.data().uid}</p>
         <p class="date" >${doc.data().date}</p>
-        <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">edit</a></h5>
-        <button id="chat"></button>
+        <h5 class="edit-button"><a href="https://leekwansoo.github.io/mangomarket/edit.html?id=${doc.id}">edit</a></h5>
+        <button id="chat">chat</button>
         <p class="float-end">🤍0</p>
               
       </div>
@@ -111,7 +110,7 @@
     }
     db.collection('chatroom').add(info).then((uploadresult)=> {
     console.log(uploadresult);
-    window.location.href = '/chat.html';
+    window.location.href = 'https://leekwansoo.github.io/mangomarket/chat.html';
     }).catch((error)=> {console.log(error);
     })
     })
