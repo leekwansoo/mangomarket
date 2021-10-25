@@ -4,29 +4,29 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">오장로회 Album</a>
-        <span class="ms-auto mx-2" id="userName">userName</span>
+        <span class="ms-auto mx-2" id="userName">사용자</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+              <a class="nav-link active" aria-current="page" href="list.html">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="index.html">lists</a>
+              <a class="nav-link" href="list.html">사진목록</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="category.html">Category</a>
+              <a class="nav-link" href="category.html">Category별</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="login.html">Login하기</a>
+              <a class="nav-link" href="index.html">Login하기</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="register.html">Register하기</a>
+              <a class="nav-link" href="register.html">등록하기</a>
             </li>
           </ul>
         </div>
@@ -43,7 +43,7 @@
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-auth.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-firestore.js"></script>
   <script src="https://www.gstatic.com/firebasejs/8.6.5/firebase-storage.js"></script>
-  <link href="index.css" rel="stylesheet">
+  <link href="main.css" rel="stylesheet">
     <title>Welcome to Firebase Hosting</title>
   </head>
 
@@ -70,9 +70,9 @@
       <label>내용</label>
       <textarea class="form-control mt-2" id="content" placeholder="content"></textarea>
       <br><br>
-      <label for="category">Category 선택:</label>
+      <label for="category">Category:</label>
       <select name="category" id="category">
-        <option value="Family">가족</option>
+        <option value="family">가정</option>
         <option value="Travel">여행</option>
         <option value="Event">행사</option>
         <option value="Others">기타</option>
@@ -127,7 +127,7 @@
            }
           db.collection('product').doc(queryString.get('id')).update(updateItem).then(()=>{
             $('#modify-success').html('내용이 수정 되었습니다');
-            window.location.href = '/index.html';
+            window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
           })
          
           })
@@ -148,8 +148,8 @@
           // Create a reference to the file to delete
                  
           db.collection('product').doc(queryString.get('id')).delete().then(()=>{
-            $('#modify-success').html('삭제 되었습니다');
-        
+            $('#modify-success').html('내용이 삭제 되었습니다');
+             window.location.href = 'https://leekwansoo.github.io/mangomarket/list.html';
           })
          
           })

@@ -6,7 +6,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-+0n0xVW2eSR5OomGNYDnhzAbDsOXxcvSN1TPprVMTNDbiYZCxYbOOl7+AMvyTG2x" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-gtEjrD/SeCtmISkJkNUaaKMoLD0//ElJ19smozuHV6z3Iehds+3Ulb9Bn9Plx0x4" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <link href="index.css" rel="stylesheet">
+    <link href="main.css" rel="stylesheet">
     <title>Welcome to Firebase Hosting</title>
   </head>
 
@@ -14,38 +14,27 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container-fluid">
         <a class="navbar-brand" href="#">오장로회 Album</a>
-        <span class="ms-auto mx-2" id="userName">userName</span>
+        <span class="ms-auto mx-2" id="userName">사용자</span>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
+              <a class="nav-link active" aria-current="page" href="list.html">Home</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="index.html">Lists</a>
-            </li>
-            <li class="nav-item dropdown">
-              <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                Category
-              </a>
-              <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><hr class="dropdown-divider"></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
-            </li>
+               
+                <select name="category" id="category">
+                  <option value="Event">행사</option>
+                  <option value="Others">여행</option>
+                  <option value="Travel">교회  </option>
+                  <option value="Event">일상</option>
+                  <option value="Others">기타</option>
+                </select>
             <li class="nav-item">
               <a class="nav-link" href="upload.html">사진올리기</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="login.html">Login하기</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="register.html">Register하기</a>
-            </li>
+           
           </ul>
         </div>
       </div>
@@ -72,8 +61,12 @@
     </script>
     <!-- Firebase 에서 저장된 data 가져오기 -->
     <script>
-         
-      db.collection('product').get().then((result)=>{
+
+      $('#category').change(function(){
+
+      var catvalue = $('#category').val()
+         console.log(catvalue)
+      db.collection('product').where('category', '==', 'catvalue').get().then((result)=>{
         result.forEach((doc)=>{
       
       var template = `<div class="product">
@@ -88,36 +81,18 @@
         <p class="family" id="ownerid">${doc.data().uid}</p>
         <p class="date" >${doc.data().date}</p>
         <h5 class="edit-button"><a href="/edit.html?id=${doc.id}">edit</a></h5>
-        <button id="chat"></button>
         <p class="float-end">🤍0</p>
               
-      </div>
-      </div>`;
+        </div>
+        </div>`;
       $('.container').append(template)
     })
-
-    $('#chat').click(function(){
-
-    var owneruid; 
-    db.collection('product').doc(doc.id).get().then((result)=>{
-      ownerid = result.data().uid;
-    })
-    var myuid = JSON.parse( localStorage.getItem('user') ).uid; 
-    var info = {
-      who: [myuid, owneruid],
-      title: title,
-      date : new Date()
-    }
-    db.collection('chatroom').add(info).then((uploadresult)=> {
-    console.log(uploadresult);
-    window.location.href = '/chat.html';
-    }).catch((error)=> {console.log(error);
-    })
-    })
   })
-    </script> 
-    
-     <div class="container mt-3">
+  })
+
+    </script>
+
+    <div class="container mt-3">
       
     </div> 
   </body>
