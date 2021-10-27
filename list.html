@@ -70,7 +70,8 @@
          
       db.collection('product').get().then((result)=>{
         result.forEach((doc)=>{
-      
+        var seconds = doc.data().date.seconds
+        var newdate = Date(seconds)
       var template = `<div class="product">
         <div class="thumbnail" style="background-image: url('${doc.data().image}')">
         </div>
@@ -80,7 +81,7 @@
         <p class="content">${doc.data().content}</p>
         <p class="category">${doc.data().category}</p>
         <p class="family">${"올린이 : " + doc.data().name}</p>
-        <p class="date" >${doc.data().date}</p>
+        <p class="date" >${newdate}</p>
         <h5 class="edit-button"><a href="https://leekwansoo.github.io/mangomarket/edit.html?id=${doc.id}">수정</a></h5>
         <p class="float-end">🤍0</p>
               
