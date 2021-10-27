@@ -78,12 +78,12 @@
         <div id = "picture" class="detail-pic my-4" style="background-image: url('https://placeimg.com/640/380/tech');"></div>
 
         <div>
-          <h5 id="author">Uploaded BY :</h5>
+          <h5 id="author">올린사람: </h5>
           <hr>
           <h5 class="title">{title}</h5>
           <p class="content">{content}</p>
           <p class="category">{category}</p>
-          <p class="image">{image}</p>
+          <p class="date">{date}</p>
         </div>
         <div>
           <button class="btn btn-outline-primary" id="edit">edit</button>
@@ -108,9 +108,9 @@
           $('#author').html('Owner : ' + result.data().name)
           $('.title').html(result.data().title)
           $('.content').html(result.data().content)
-          $('.price').html(result.data().price)
-          $('.image').html(result.data().image)
-           
+          $('.category').html("Category: " + result.data().category)
+          $('.date').html(newdate)
+          $('.detail-pic').css('background-image',`url(${result.data().image})`) 
         })
       </script> 
         
